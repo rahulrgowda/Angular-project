@@ -1,0 +1,56 @@
+ 
+<div class="container py-5">
+    <h2 class="text-center mb-4">Contact Us</h2>
+    <div class="row justify-content-center mb-5 mx-auto">
+        <!-- Address 1 -->
+        <div class="col-md-4 ">
+            <h4>Bengaluru</h4>
+            <p>BikeRentz, Boomi Plaza, Manyata Tech Park, Hebbal, Bengaluru</p>
+            <p>Email: supportsbengaluru&#64;bikerentz.com</p>
+            <p>Phone: +1-234-567-8901</p>
+        </div>
+        <!-- Address 2 -->
+        <div class="col-md-4">
+            <h4>Chennai</h4>
+            <p>BikeRentz, Aquasphere, Shollinganallur, Chennai</p>
+            <p>Email: supportschennai&#64;bikerentz.com</p>
+            <p>Phone: +1-234-567-8902</p>
+        </div>
+        <!-- Address 3 -->
+        <div class="col-md-4">
+            <h4>Hyderabad</h4>
+            <p>BikeRentz, Boulevard, Gachibowli, Hyderabad</p>
+            <p>Email: supportshyderabad&#64;bikerentz.com</p>
+            <p>Phone: +1-234-567-8903</p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form  [formGroup]="feedbackDetails" (ngSubmit)="submitContactUs()" >
+                <div class="mb-3">
+                    <label>Name</label>
+                    <input type="text" class="form-control" formControlName="name" name="name" placeholder="Your Name" >
+                    <small *ngIf="feedbackDetails.controls['name'].invalid && (feedbackDetails.controls['name'].dirty || feedbackDetails.controls['name'].touched)" class="block p-error">
+                        <div *ngIf="(feedbackDetails.controls['name'].errors)?.['required']">Name is required</div>
+                    </small>
+                </div>
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" class="form-control"  formControlName="emailId" name="emailId" placeholder="name@example.com">
+                    <small *ngIf="feedbackDetails.controls['emailId'].invalid && (feedbackDetails.controls['emailId'].dirty || feedbackDetails.controls['emailId'].touched)" class="block p-error">
+                        <div *ngIf="(feedbackDetails.controls['emailId'].errors)?.['required']">Email is required</div>
+                        <div *ngIf="(feedbackDetails.controls['emailId'].errors)?.['email']">Email should be valid</div>
+                      </small>
+                </div>
+                <div class="mb-3">
+                    <label>Message</label>
+                    <textarea class="form-control"  formControlName="message" name="message" rows="3" ></textarea>
+                    <small *ngIf="feedbackDetails.controls['message'].invalid && (feedbackDetails.controls['message'].dirty || feedbackDetails.controls['message'].touched)" class="block p-error">
+                        <div *ngIf="(feedbackDetails.controls['message'].errors)?.['required']">Name is required</div>
+                    </small>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="feedbackDetails.invalid">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

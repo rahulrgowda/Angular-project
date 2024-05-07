@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.py-5 {
+    padding: 3rem 0;
+}
+
+h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+p {
+    line-height: 1.6;
+    color: #666;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.bg-light {
+    background-color: #f8f9fa!important;
+}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+}
+
+ 

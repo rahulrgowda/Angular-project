@@ -1,0 +1,23 @@
+<h3 class="text-center py-3">Bookings</h3>
+<div class="table-container">
+<table>
+  <tr>
+    <th>Customer Details</th>
+    <th>Bike Name</th>
+    <th>Pickup Time</th>
+    <th>Drop Time</th>
+    <th>Place</th>
+    <th>Total Cost</th>
+  </tr>
+  <tr *ngFor="let booking of bookings">
+    <td class="text-center ">{{booking.userName}}<br>email: {{booking.userEmailId}} </td>
+    <td class="text-center col-3">
+      <img [src]=booking.bikePicUrl alt="Bike Image" height="100px"><br>{{booking.bikeBooked}}
+    </td>
+    <td class="text-center ">{{booking.pickUpDate | date:'short'}}</td>
+    <td class="text-center ">{{booking.dropOffDate | date:'short'}}</td>
+    <td class="text-center ">{{booking.pickUpLocation}}</td>
+    <td class="text-center ">₹ {{booking.totalRideCost}}</td>
+  </tr>
+</table>
+</div>

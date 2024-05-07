@@ -1,0 +1,12 @@
+
+            <div class="card" >
+                <div class="card-body" >
+                    <h5 class="card-title">{{bikeData?.brand}} {{bikeData?.name}}</h5>
+                    <img [src]="bikeData?.imageUrl" alt="Bike" class="card-img-top">
+                    <p class="card-text">Price: <span style="font-weight:bold">Rs.{{bikeData?.price}}/hr</span></p>
+                    <p class="card-text">Location: {{bikeData?.locationTitle}}</p>
+                    <button *ngIf="checkOverlap(bikeData)" class="btn btn-book-now btn-secondary" disabled>Not Available</button>
+                    <button *ngIf="!checkOverlap(bikeData)" class="btn btn-book-now btn-success" (click)="onClick()" >Book Now</button>
+                </div>
+            </div>
+        

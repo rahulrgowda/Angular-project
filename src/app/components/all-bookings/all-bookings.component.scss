@@ -1,0 +1,31 @@
+.table-container{
+    width:100%;
+    overflow-x: auto;
+}
+table {
+    width: 90%;  
+    margin-left: auto;
+    margin-right: auto; 
+    margin-bottom:20px;
+    
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+}
+
+td {
+    padding: 15px; 
+    text-align: center;
+    border: 1.5px solid #a6a0a0;
+}
+
+th {
+    background-color: #070707;
+    color: white;
+    padding: 15px; 
+    text-align: center;
+    border: 2px solid #f9f6f6;
+}
+ 
+
+ 
+
+ 

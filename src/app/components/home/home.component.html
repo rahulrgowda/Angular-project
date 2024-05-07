@@ -1,0 +1,14 @@
+<div id="booking">
+     
+    <form id="form"> 
+        <select  [(ngModel)]="fromLocation" class="placeholder1 form-control"  name="fromLocation" id="start">
+            <option value="" disabled >Pick Up Cities</option>
+            <option *ngFor="let location of locations"  [value]="location.locationId" >{{location.locationName}}</option>
+        </select>
+ 
+        <div *ngIf="fromLocation===''"><button id="primaryButton" type="button" disabled>FIND BIKES</button></div>
+
+        <div *ngIf="fromLocation!==''"><button id="primaryButton" type="button" (click)="navigateToSearchPage()">FIND BIKES</button></div>
+    </form> 
+</div>
+ 

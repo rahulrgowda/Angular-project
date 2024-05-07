@@ -1,0 +1,187 @@
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg" *ngIf="this.nav.visible">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">
+      <img id="logoSize" src="../assets/images/bikelogo-removebg-preview.png" alt=""
+        class="d-inline-block align-text-top">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+        <li class="nav-item active">
+          <a class="nav-link text-light" routerLink="/home">Home </a>
+        </li>
+        <li class="nav-item active">
+          <a *ngIf="!(loggedUserObj?loggedUserObj.admin:false)" class="nav-link text-light" routerLink="/aboutus">About
+            us </a>
+        </li>
+        <li class="nav-item active">
+          <a *ngIf="!(loggedUserObj?loggedUserObj.admin:false)" class="nav-link text-light"
+            routerLink="/contactus">Contact us </a>
+        </li>
+
+        <li *ngIf="loggedUserObj" class="nav-item active">
+          <a *ngIf="loggedUserObj.admin" class="nav-link text-light" routerLink="/allBookings">Bookings</a>
+        </li>
+
+        <li *ngIf="loggedUserObj" class="nav-item active">
+          <a *ngIf="loggedUserObj.admin" class="nav-link text-light" routerLink="/feedbacks">Feedbacks</a>
+        </li>
+      </ul>
+
+      <form class="d-flex" *ngIf="loggedUserObj">
+        <button *ngIf="loggedUserObj.admin" class="btn btn-outline-light  round-button mx-2"
+          type="button">{{loggedUserObj.name}}</button>
+        <button *ngIf="!loggedUserObj.admin" class="btn btn-outline-light  round-button mx-2" type="button"
+          (click)="redirectToBookings()">{{loggedUserObj.name}}</button>
+        <button class="btn btn-success round-button" (click)="logOff()" type="button">Log Off</button>
+      </form>
+      <form class="d-flex" *ngIf="!loggedUserObj">
+        <button class="btn btn-outline-light round-button mx-2" (click)="openLogin()" type="button">Login</button>
+        <button class="btn btn-success round-button" (click)="openRegister()" type="button">Register</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<!-- Router Outlet -->
+
+
+<div class="container-fluid pt-3">
+  <router-outlet></router-outlet>
+</div>
+
+<!-- Footer -->
+<footer *ngIf="this.nav.visible">
+
+  <div class="footer-info">
+    &reg; &copy;2024 Copyright: BikeRidez pvt ltd
+  </div>
+
+</footer>
+
+
+
+<!-- REGISTER POPUP -->
+
+<div id="registerModal" class="modal">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Register</h4>
+        <button type="button" class="btn-close" (click)="closeRegister()" data-bs-dismiss="modal"></button>
+
+      </div>
+      <form [formGroup]="registerObj" (ngSubmit)="onRegister()">
+        <div class="modal-body">
+          <div class="row pt-1">
+            <div class="col-6">
+              <label for="">Name</label>
+              <input type="text" formControlName="name" name="name" class="form-control mt-2">
+              <small
+                *ngIf="registerObj.controls['name'].invalid && (registerObj.controls['name'].dirty || registerObj.controls['name'].touched)"
+                class="block p-error">
+                <div *ngIf="(registerObj.controls['name'].errors)?.['required']">Name is required</div>
+                <div *ngIf="(registerObj.controls['name'].errors)?.['pattern']">Name is Invalid (symbols not allowed)
+                </div>
+              </small>
+            </div>
+          </div>
+          <div class="row pt-2">
+            <div class="col-6">
+              <label>Email</label>
+              <input type="email" formControlName="emailId" name="emailId" class="form-control mt-2">
+              <small
+                *ngIf="registerObj.controls['emailId'].invalid && (registerObj.controls['emailId'].dirty || registerObj.controls['emailId'].touched)"
+                class="block p-error">
+                <div *ngIf="(registerObj.controls['emailId'].errors)?.['required']">Email is required</div>
+                <div *ngIf="(registerObj.controls['emailId'].errors)?.['email']">Email should be valid</div>
+              </small>
+            </div>
+
+            <div class="col-6">
+              <label>Mobile Number</label>
+              <input type="text" formControlName="mobileNo" name="mobileNo" name="number" class="form-control mt-2"
+                required>
+            </div>
+          </div>
+
+          <div class="row pt-2">
+            <div class="col-12">
+              <label>Password</label>
+              <input type="password" formControlName="password" name="password" class="form-control mt-2">
+              <small
+                *ngIf="registerObj.controls['password'].invalid && (registerObj.controls['password'].dirty || registerObj.controls['password'].touched)"
+                class="block p-error">
+                <div *ngIf="(registerObj.controls['password'].errors)?.['required']">Password is required</div>
+                <div *ngIf="(registerObj.controls['password'].errors)?.['pattern']">
+                  include Upppercase, Number, Symbol and minimum 6char.</div>
+              </small>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default btn-success" data-dismiss="modal"
+            [disabled]="registerObj.invalid">Register</button>
+          <button type="button" class="btn btn-default btn-danger" (click)="closeRegister()"
+            data-dismiss="modal">Close</button>
+        </div>
+        <div class="modal-footer">
+          <p>Already a user ? <button class="btn btn-default btn-light  text-primary"
+              (click)="openLogin()">Login</button></p>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<!-- Login Popup -->
+
+<div id="loginModal" class="modal">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Login</h4>
+        <button type="button" class="btn-close" (click)="closeLogin()" data-bs-dismiss="modal"></button>
+
+      </div>
+      <div class="modal-body">
+        <div class="row pt-1">
+          <div class="col-12">
+            <label>Email</label>
+            <input type="email" [(ngModel)]="loginObj.emailId" class="form-control mt-2">
+          </div>
+          <div class="row pt-2">
+            <div class="col-12">
+              <label>Password</label>
+              <input type="password" [(ngModel)]="loginObj.password" class="form-control mt-2">
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default btn-success" (click)="onLogin()"
+            data-dismiss="modal">Login</button>
+          <button type="button" class="btn btn-default btn-danger" (click)="closeLogin()"
+            data-dismiss="modal">Close</button>
+        </div>
+        <div class="modal-footer">
+          <p>Not a user ? <button class="btn btn-default btn-light text-primary"
+              (click)="openRegister()">Register</button></p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>

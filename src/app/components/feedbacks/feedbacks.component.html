@@ -1,0 +1,18 @@
+<h3 class="text-center py-3">Feedbacks</h3>
+
+<div class="table-container">
+<table class="mb-4">
+  <tr>
+    <th>Name</th>
+    <th>Email ID</th>
+    <th>Message</th>
+    <th>Action</th> 
+  </tr>
+  <tr *ngFor="let feedback of allFeedbacks">
+    <td class="text-center col-2">{{feedback.name}}</td>
+    <td class="text-center col-3">{{feedback.emailId}}</td>
+    <td class="text-center col-6">{{feedback.message}}</td>
+    <td><button class="delete-btn text-center " (click)="deleteFeedback(feedback)">Delete</button></td>
+  </tr>
+</table>
+ </div>                    

@@ -1,0 +1,97 @@
+<div *ngFor="let loc of locations">
+  <h3 class="search-heading text-center" *ngIf="loc.locationId==locationId">Bikes in {{loc.locationName}}</h3>
+</div>
+
+<div class="form-container mt-4 mb-4 mx-auto border-bottom border-3">
+  <form class="form row mb-3 mx-auto justify">
+    <div class="col-sm-4 form-group">
+      <label>Start Date and Time:</label>
+      <input type="datetime-local" [(ngModel)]="bookingDuration.startDateTime" name="startDateTime"
+        class="form-control mt-2" id="startDate">
+    </div>
+
+    <div class="col-sm-4 form-group">
+      <label>End Date and Time:</label>
+      <input type="datetime-local" [(ngModel)]="bookingDuration.endDateTime" name="endDateTime"
+        class="form-control mt-2">
+    </div>
+
+    <div class="col-sm-4 form-group">
+      <input type="button" class="btn btn-default btn-success" (click)="saveDuration()" value="Save">
+    </div>
+
+  </form> 
+
+</div>
+
+<!-- CARDS -->
+
+<div class="container bike-container">
+  <div class="row">
+    <div class="col-sm-6 col-lg-3 mb-3 " *ngFor="let bike of ourBikes">
+      <app-bike-card [bikeData]="bike" [overlapData]="overlapBooking" (outputData)="makeBooking($event)" ></app-bike-card>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- BOOKING DETAILS -->
+
+<div id="bookingModal" class="modal">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <div class="col-12 modal-header">
+        <h4 class="modal-title">Booking Details</h4>
+        <button type="button" class="btn-close" (click)="closeBookingDetails()" data-bs-dismiss="modal"></button>
+
+      </div>
+      <div class="modal-body">
+        <div class="row pt-1">
+          <div class="col-6 mx-auto">
+            <img [src]="bookingDetails.bikePicUrl" alt="Bike Picture" class="img-fluid mx-auto">
+          </div>
+        </div>
+
+        <div class="row pt-1">
+          <div class="col-12">
+            <p class="text-center"><strong>{{bookingDetails.bikeBooked}}</strong></p>
+          </div>
+        </div>
+
+        <div class="row pt-1">
+          <div class="col-6">
+            <p class="text-center"><strong>Pickup : </strong>{{bookingDetails.pickUpDate | date:'short'}}
+              <!-- {{bookingDetails.pickUpDate.split('T')[0]}}
+              {{bookingDetails.pickUpDate.split('T')[1]}} -->
+            </p>
+          </div>
+          <div class="col-6">
+            <p class="text-center"><strong>Drop : </strong>{{bookingDetails.dropOffDate | date:'short'}}
+              <!-- {{bookingDetails.dropOffDate.split('T')[0]}}
+              {{bookingDetails.dropOffDate.split('T')[1]}}</p> -->
+          </div>
+        </div>
+
+        <div class="row pt-1">
+          <div class="col-6">
+            <p class="text-center"><strong>Duration :</strong> {{bookingDetails.rideDuration}} hrs</p>
+          </div>
+          <div class="col-6">
+            <p class="text-center"><strong>Location :</strong> {{bookingDetails.pickUpLocation}}</p>
+          </div>
+        </div>
+        <div class="row pt-1">
+          <div class="col-12">
+            <p class="text-center"><strong>Total Cost : ₹ {{bookingDetails.totalRideCost}}</strong></p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="paymentDone()" class="btn btn-default btn-success form-control">Pay</button>
+        
+      </div>
+    </div>
+  </div>

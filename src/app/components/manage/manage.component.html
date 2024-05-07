@@ -1,0 +1,101 @@
+<div *ngFor="let loc of locations">
+    <h3 class="search-heading text-center mb-4" *ngIf="loc.locationId==locationId">Bikes in {{loc.locationName}}</h3>
+</div>
+<div class="button-add"><button type="button" class="btn btn-lg btn-success mb-4 add-button text-light" (click)="openForm()">Add BIKE</button></div>
+
+
+<div class="container bike-container">
+    <div class="row">
+        <div class="col-sm-6 col-lg-3 mb-3 " *ngFor="let bikeData of ourBikes">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{bikeData?.brand}} {{bikeData?.name}}</h5>
+                    <img [src]="bikeData?.imageUrl" alt="Bike" class="card-img-top">
+                    <p class="card-text">Price: <span style="font-weight:bold">Rs.{{bikeData?.price}}/hr</span></p>
+                    <p class="card-text">Location: {{bikeData?.locationTitle}}</p>
+                    <div class="buttons">
+                        <button class="btn btn-edit-now btn-primary" (click)="getEditBike(bikeData)">Edit</button>
+                        <button class="btn btn-delete-now btn-danger" (click)="deleteBike(bikeData._id)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Add Bike Form -->
+
+<div id="addBikeModal" class="modal">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-title">Add Bike</h4>
+                <button type="button" class="btn-close" (click)="closeForm()" data-bs-dismiss="modal"></button>
+
+            </div>
+            <form [formGroup]="bikeObj" (ngSubmit)="onAdd()">
+                <div class="modal-body">
+                    <div class="row pt-1">
+                        <div class="col-6">
+                            <label for="">Brand</label>
+                            <input type="text" formControlName="brand" name="brand" class="form-control mt-2">
+
+                        </div>
+                        <div class="col-6">
+                            <label for="">Name</label>
+                            <input type="text" formControlName="name" name="name" class="form-control mt-2">
+
+                        </div>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col-12">
+                            <label>Image Url</label>
+                            <input type="text" formControlName="imageUrl" name="imageUrl" class="form-control mt-2">
+
+                        </div>
+                    </div>
+
+                    <div class="row pt-2">
+                        <div class="col-6">
+                            <label>City</label>
+                            <div *ngFor="let loc of locations">
+                                <input *ngIf="loc.locationId==locationId" type="text" formControlName="locationId"
+                                    name="locationId" class="form-control mt-2"
+                                    [placeholder]="loc.locationName" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <label>Location</label>
+                            <input type="text" formControlName="locationTitle" name="locationTitle"
+                                class="form-control mt-2">
+
+                        </div>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col-6">
+                            <label>Price</label>
+                            <input type="text" formControlName="price" name="price" class="form-control mt-2">
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default btn-success" id="modal-btn-add" data-dismiss="modal"
+                        [disabled]="bikeObj.invalid">Add Bike</button>
+                    <button type="button" class="btn btn-default btn-success" id="modal-btn-edit" data-dismiss="modal"
+                        [disabled]="bikeObj.invalid" style="display:none" (click)="editBike()">Edit Bike</button>
+                    <button type="button" class="btn btn-default btn-danger" (click)="closeForm()"
+                        data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
